@@ -24,8 +24,21 @@ public class Game {
         
         //choose a starting team
         Random rnd = new Random();
-        currentTeam = rnd.nextInt(1);
+        currentTeam = rnd.nextInt(2);
         
+    }
+    
+    public int makeMove (int moveFrom, int moveTo) {
+        int moveMade = board.makeMove(currentTeam, moveFrom, moveTo);
+        if (moveMade == 1)
+            currentTeam = 1 - currentTeam;
+        
+        board.printBoard();
+        return moveMade;
+    }
+    
+    public int getCurrentTeam () {
+        return currentTeam;
     }
     
 }

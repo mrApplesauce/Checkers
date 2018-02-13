@@ -43,7 +43,7 @@ public class Tile {
     }
     
     public void setIndex (int index) {
-        index = index;
+        this.index = index;
     }
     
 }

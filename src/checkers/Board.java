@@ -52,17 +52,19 @@ public class Board {
                 System.out.println("");
         }
         
+        System.out.println("");
+        
     }
     
     public Tile getTile (int index) {
         return tiles[index];
     }
     
-    public boolean makeMove (int teamID, int moveFrom, int moveTo) {
+    public int makeMove (int teamID, int moveFrom, int moveTo) {
         if (getTile(moveFrom) == null)
-            return false;
+            return -1;
         if (getTile(moveFrom).getTeam() != teamID)
-            return false;
+            return -1;
         
         int arr[] = calculateMoves(getTile(moveFrom));
         for (int i = 0; i < arr.length; i++)
@@ -70,10 +72,26 @@ public class Board {
                 tiles[moveTo] = tiles[moveFrom];
                 tiles[moveTo].setIndex(moveTo);
                 tiles[moveFrom] = null;
-                return true;
+                
+                //get rid of opposition tile if moved over
+                if (Math.abs(moveFrom - moveTo) > 11) {
+                    int offset = (moveTo - moveFrom) / 2;
+                    tiles[moveFrom + offset] = null;
+                    if (checkWin(teamID))
+                        return 0;
+                }
+                
+                //set tile as king if applicable
+                int row = moveTo / (dimension);
+                if (row == dimension-1 && tiles[moveFrom].getTeam() == 0)
+                    tiles[moveTo].setKing();
+                if (row == 0 && tiles[moveFrom].getTeam() == 1)
+                    tiles[moveTo].setKing();
+                
+                return 1;
             }
         
-        return false;
+        return -1;
     }
     
     public int[] calculateMoves (Tile tile) {
@@ -132,8 +150,9 @@ public class Board {
         int size = dimension * dimension - 1;
         int check = 1 - teamID;
         for (int i = 0; i < size; i++) {
-            if (tiles[i].getTeam() == check)
-                return false;
+            if (tiles[i] != null)
+                if (tiles[i].getTeam() == check)
+                    return false;
         }
         
         return true;
