@@ -20,7 +20,6 @@ public class Game {
         
         //initialize the checkers board (default: 10*10 board, 20 pieces per team)
         board = new Board(10, 20);
-        board.printBoard();
         
         //choose a starting team
         Random rnd = new Random();
@@ -28,12 +27,14 @@ public class Game {
         
     }
     
+    //returns -1 if move was impossible
+    //returns 0 if the game has been won
+    //returns 1 if the move was made and the turn was switched
     public int makeMove (int moveFrom, int moveTo) {
         int moveMade = board.makeMove(currentTeam, moveFrom, moveTo);
         if (moveMade == 1)
             currentTeam = 1 - currentTeam;
         
-        board.printBoard();
         return moveMade;
     }
     

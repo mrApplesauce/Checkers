@@ -5,6 +5,8 @@
  */
 package checkers;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Taylor
@@ -16,6 +18,11 @@ public class Checkers {
      */
     public static void main(String[] args) {
         Game game = new Game();
+        
+        // run a loop making sure that no game.makeMove() call returns a 0 for the end of game
+        // make move will return false if move is invalid
+        // otherwise game.currentTeam() will return the current team up
+        
     }
     
 }

@@ -83,9 +83,9 @@ public class Board {
                 
                 //set tile as king if applicable
                 int row = moveTo / (dimension);
-                if (row == dimension-1 && tiles[moveFrom].getTeam() == 0)
+                if (row == dimension-1 && tiles[moveTo].getTeam() == 0)
                     tiles[moveTo].setKing();
-                if (row == 0 && tiles[moveFrom].getTeam() == 1)
+                if (row == 0 && tiles[moveTo].getTeam() == 1)
                     tiles[moveTo].setKing();
                 
                 return 1;
